@@ -44,7 +44,7 @@
     <button type="button" class="shadow-sm  bg-white rounded e-btn e-flat mx-2" title="Details" onclick="onDetailsClick(${Id})">
         <i class="bi bi-card-list text-info" style="font-size: 19px;"></i>
     </button>
-    <button type="button"  class="shadow-sm  bg-white rounded e-btn e-flat" title="Edit" onclick="onEditClick(${Id})">
+    <button type="button"  class="shadow-sm  bg-white rounded e-btn e-flat mx-2" title="Edit" onclick="onEditClick(${Id})">
         <i class="fa-solid fa-pen fa-lg text-warning" ></i>
     </button>
     <button type="button" class="shadow-sm   bg-white rounded e-btn e-flat mx-2" title="Delete" onclick="onDeleteClick(${Id})">
@@ -54,7 +54,7 @@
 
 <div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+        <div class="modal-content" style="background-color:#252a33">
             <div class="modal-header d-flex justify-content-center">
                 <h3 class="modal-title" id="detailsModalLabel">About customers</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -122,7 +122,7 @@
 
 <div class="modal fade" id="customerEditModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+        <div class="modal-content" style="background-color: #252a33; color: white">
             <div class="modal-header d-flex justify-content-center">
                 <h4 class="modal-title">Edit Customer</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
