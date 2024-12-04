@@ -1,4 +1,5 @@
-﻿using BarbershopManagementSystem.WebUI.Stores.Interfaces;
+﻿using BarbershopManagementSystem.WebUI.Models.Entity;
+using BarbershopManagementSystem.WebUI.Stores.Interfaces;
 using BarbershopManagementSystem.WebUI.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -44,6 +45,8 @@ public class CustomersController : Controller
     [ValidateAntiForgeryToken]
     public async Task<ActionResult> Create([Bind("FullName, PhoneNumber, Email")] CustomerViewModel customer)
     {
+
+
         var createdCustomer = await _customerStore.CreateCustomerAsync(customer);
 
         return RedirectToAction(nameof(Details), new { id = createdCustomer.Id});

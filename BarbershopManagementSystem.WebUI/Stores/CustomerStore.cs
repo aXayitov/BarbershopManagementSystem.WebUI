@@ -1,4 +1,6 @@
-﻿using BarbershopManagementSystem.WebUI.Models;
+﻿using BarbershopManagementSystem.WebUI.Mappings;
+using BarbershopManagementSystem.WebUI.Models;
+using BarbershopManagementSystem.WebUI.Models.Entity;
 using BarbershopManagementSystem.WebUI.Services;
 using BarbershopManagementSystem.WebUI.Stores.Interfaces;
 using BarbershopManagementSystem.WebUI.ViewModels;
@@ -39,8 +41,10 @@ public class CustomerStore : ICustomerStore
 
     public async Task<CustomerViewModel> CreateCustomerAsync(CustomerViewModel customerForCreate)
     {
+        var entity = customerForCreate.ToEntity();
+
         var createdCustomer = await _client
-            .PostAsync<CustomerViewModel, CustomerViewModel>(URL, customerForCreate);
+            .PostAsync<CustomerViewModel, Customer>(URL, entity);
 
         return createdCustomer;
     }

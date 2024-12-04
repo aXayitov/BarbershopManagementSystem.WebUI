@@ -1,4 +1,5 @@
 ﻿using BarbershopManagementSystem.WebUI.Models;
+using BarbershopManagementSystem.WebUI.Models.Entity;
 using BarbershopManagementSystem.WebUI.ViewModels;
 
 namespace BarbershopManagementSystem.WebUI.Stores.Interfaces;
