@@ -21,6 +21,8 @@ namespace BarbershopManagementSystem.WebUI.Controllers
         {
             var dashboard = await _dashboardStore.GetDashboardAsync();
 
+            ViewBag.EnrollmentsByService = dashboard.EnrollmentsByServices;
+
             return View(dashboard);
         }
 

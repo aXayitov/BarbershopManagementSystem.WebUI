@@ -48,18 +48,22 @@
             </div>
             <ejs-accumulationchart id="doughnutchart" enableSmartLabels background="#1a222b">
                 <e-accumulation-series-collection>
-                    <e-accumulation-series dataSource="Model.EnrollmentsByEmployee"
-                                           xName="Category" yName="SalesCount"
+                    <e-accumulation-series dataSource="@ViewBag.EnrollmentsByService"
+                                           xName="Service" yName="EnrollmentsCount"
                                            innerRadius="60%" legendShape="Circle"
-                                           palettes=@(new string[]{"#0e8d76","#a4b219","#cb9b00","#8a442c","#0454b5","#7d0a0a","#822690","#4c2090","#313e93","#0096ac"})>
-                        <e-accumulationseries-datalabel name="formattedAmount" visible></e-accumulationseries-datalabel>
+                                           palettes=@(new string[]{ "#D35400","#3498DB","#27AE60","#1ABC9C","#8E44AD","#F39C12" })>
+                        <e-accumulationseries-datalabel name="formattedAmount" visible>
+                        </e-accumulationseries-datalabel>
                     </e-accumulation-series>
                 </e-accumulation-series-collection>
-                <e-accumulationchart-legendsettings position="Top" toggleVisibility="false">
-                    <e-legendsettings-textstyle color="#fff" size="1rem"></e-legendsettings-textstyle>
+
+                <e-accumulationchart-legendsettings position="Top" toggleVisibility="true">
+                    <e-legendsettings-textstyle color="white" size="1.2rem"></e-legendsettings-textstyle>
                 </e-accumulationchart-legendsettings>
-                <e-accumulationchart-tooltipsettings enable></e-accumulationchart-tooltipsettings>
+                <e-accumulationchart-tooltipsettings enable="true"></e-accumulationchart-tooltipsettings>
             </ejs-accumulationchart>
+
+
         </div>
     </div>
 
@@ -83,7 +87,7 @@
                     <e-chartarea-border width="0"></e-chartarea-border>
                 </e-chart-chartarea>
                 <e-series-collection>
-                    <e-series dataSource="Model.SplineCharts" xName="Month" yName="Income"
+                    <e-series dataSource="@Model.SplineCharts" xName="Month" yName="Income"
                               width="3" name="Enrollements" type="@Syncfusion.EJ2.Charts.ChartSeriesType.Spline"></e-series>
                 </e-series-collection>
                 <e-chart-legendsettings position="Top" alignment="Far" toggleVisibility="false">

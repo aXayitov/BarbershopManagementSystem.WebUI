@@ -51,7 +51,9 @@ public class CustomerStore : ICustomerStore
 
     public async Task UpdateCustomerAsync(CustomerViewModel customerForUpdate)
     {
-        await _client.PutAsync(URL, customerForUpdate);
+        var entity = customerForUpdate.ToEntity();
+
+        await _client.PutAsync(URL, entity);
     }
 
     public async Task DeleteCustomerAsync(int id)

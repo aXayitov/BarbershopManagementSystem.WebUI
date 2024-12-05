@@ -74,7 +74,7 @@ public class CustomersController : Controller
         {
             await _customerStore.UpdateCustomerAsync(customer);
 
-            return RedirectToAction(nameof(Details), new { id });
+            return RedirectToAction();
         }
         catch
         {

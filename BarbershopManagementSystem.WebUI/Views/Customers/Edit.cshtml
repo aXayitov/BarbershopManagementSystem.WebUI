@@ -1,10 +1,9 @@
-﻿@* @using BarbershopManagementSystem.WebUI.ViewModels
+﻿@using BarbershopManagementSystem.WebUI.ViewModels
 @model CustomerViewModel
- *@
 @{
+    ViewData["Title"] = "Edit";
     Layout = null; 
 }
-@* 
 <div class="container mt-4 mb-5" style="background-color: #252a33; color: white">
     <div class="card shadow border-0" style="background-color: #252a33; color: white">
 
@@ -45,14 +44,4 @@
     </div>
 </div>
 
-<script>
-    $(document).ready(function() {
-        // Add tooltips for validation errors
-        $('[data-valmsg-for]').each(function() {
-            if ($(this).text().trim() !== "") {
-                $(this).prev().addClass('is-invalid');
-            }
-        });
-    });
-</script>
- *@
+

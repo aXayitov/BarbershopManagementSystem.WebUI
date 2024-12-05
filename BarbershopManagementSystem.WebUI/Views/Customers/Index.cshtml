@@ -41,7 +41,8 @@
 </div>
 
 <script type="text/x-template" id="actionTemplate">
-    <button type="button" class="shadow-sm  bg-white rounded e-btn e-flat mx-2" title="Details" onclick="onDetailsClick(${Id})">
+    <div>
+        <button type="button" class="shadow-sm  bg-white rounded e-btn e-flat mx-2" title="Details" onclick="onDetailsClick(${Id})">
         <i class="bi bi-card-list text-info" style="font-size: 19px;"></i>
     </button>
     <button type="button"  class="shadow-sm  bg-white rounded e-btn e-flat mx-2" title="Edit" onclick="onEditClick(${Id})">
@@ -50,6 +51,7 @@
     <button type="button" class="shadow-sm   bg-white rounded e-btn e-flat mx-2" title="Delete" onclick="onDeleteClick(${Id})">
         <i class="fa-solid fa-trash-can fa-lg text-danger"></i>
     </button>
+    </div>    
 </script>
 
 <div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
@@ -92,6 +94,7 @@
 
 </script>
 
+
 <div class="modal fade" id="customerEditModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content" style="background-color: #252a33; color: white">
@@ -131,9 +134,13 @@
     });
 </script>
 
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+        <div class="modal-content" style="background-color:#252a33">
+            <div class="modal-header d-flex justify-content-center">
+                <h4 class="modal-title">Delete Customer</h4>
+                <button type="button" class="btn-close" style="background-color: white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
             <div class="modal-body" id="deleteContent">
             </div>
         </div>
