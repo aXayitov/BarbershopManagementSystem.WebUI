@@ -4,6 +4,9 @@ using BarbershopManagementSystem.WebUI.Models.Entity;
 using BarbershopManagementSystem.WebUI.Services;
 using BarbershopManagementSystem.WebUI.Stores.Interfaces;
 using BarbershopManagementSystem.WebUI.ViewModels;
+using Newtonsoft.Json;
+using System.Text;
+using System.Text.Json.Serialization;
 
 namespace BarbershopManagementSystem.WebUI.Stores;
 
@@ -51,9 +54,9 @@ public class CustomerStore : ICustomerStore
 
     public async Task UpdateCustomerAsync(CustomerViewModel customerForUpdate)
     {
-        var entity = customerForUpdate.ToEntity();
+        var entity = customerForUpdate.ToEntity();        
 
-        await _client.PutAsync(URL, entity);
+        await _client.PutAsync(URL+$"/{customerForUpdate.Id}", entity);
     }
 
     public async Task DeleteCustomerAsync(int id)

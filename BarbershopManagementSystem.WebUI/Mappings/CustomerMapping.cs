@@ -23,7 +23,7 @@ namespace BarbershopManagementSystem.WebUI.Mappings
                 FirstName = customerViewModel.FullName.Split(' ')[0],
                 LastName = customerViewModel.FullName.Split(' ')[1],
                 PhoneNumber = customerViewModel.PhoneNumber,
-                Email = customerViewModel.Email
+                Email = customerViewModel.Email ?? ""
             };
         }
     }

@@ -1,4 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace BarbershopManagementSystem.WebUI.Services;
 
@@ -45,7 +48,6 @@ public class ApiClient
     public async Task<TResult> PostAsync<TResult, TBody>(string url, TBody body)
         where TBody : class
     {
-
         var response = await _client.PostAsJsonAsync(url, body);
         response.EnsureSuccessStatusCode();
 

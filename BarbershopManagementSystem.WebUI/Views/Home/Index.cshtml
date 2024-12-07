@@ -10,7 +10,9 @@
             </div>
             <div class="d-flex flex-column m-auto py-3">
                 <span class="lead">Total Revenue</span>
-                <h1 class="display-6 fw-bold" id="revenueValue" data-value="@Model.Summary.Revenue">@Model.Summary?.Revenue </h1>
+                <h1 class="display-6 fw-bold" id="revenueValue" data-value="@Model.Summary.Revenue">
+                    @Model.Summary?.Revenue.ToString("N2")
+                </h1>
             </div>
         </div>
     </div>
@@ -50,8 +52,9 @@
                 <e-accumulation-series-collection>
                     <e-accumulation-series dataSource="@ViewBag.EnrollmentsByService"
                                            xName="Service" yName="EnrollmentsCount"
-                                           innerRadius="60%" legendShape="Circle"
-                                           palettes=@(new string[]{ "#D35400","#3498DB","#27AE60","#1ABC9C","#8E44AD","#F39C12" })>
+                                           innerRadius="40%" legendShape="Circle"
+                                           palettes=@(new string[]{ "#D35400","#3498DB","#27AE60","#1ABC9C","#8E44AD","#F39C12", "#0007c4",
+                                           "#f00aa3", "#f0d800", "#f01400", "#08f000", "#9bed0e"})>
                         <e-accumulationseries-datalabel name="formattedAmount" visible>
                         </e-accumulationseries-datalabel>
                     </e-accumulation-series>

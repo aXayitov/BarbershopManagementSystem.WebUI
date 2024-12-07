@@ -1,5 +1,4 @@
-﻿using BarbershopManagementSystem.WebUI.Models.Entity;
-using BarbershopManagementSystem.WebUI.Stores.Interfaces;
+﻿using BarbershopManagementSystem.WebUI.Stores.Interfaces;
 using BarbershopManagementSystem.WebUI.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -49,7 +48,7 @@ public class CustomersController : Controller
 
         var createdCustomer = await _customerStore.CreateCustomerAsync(customer);
 
-        return RedirectToAction(nameof(Details), new { id = createdCustomer.Id});
+        return RedirectToAction(nameof(Index));
     }
 
     // GET: CustomerController/Edit/5
@@ -68,18 +67,14 @@ public class CustomersController : Controller
     // POST: CustomerController/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<ActionResult> Edit(int id, [Bind("Id, FullName, PhoneNumber")] CustomerViewModel customer)
+    public async Task<ActionResult> Edit(int id,[Bind("Id, FullName, PhoneNumber, Email")] CustomerViewModel customer)
     {
-        try
+        if (ModelState.IsValid)
         {
             await _customerStore.UpdateCustomerAsync(customer);
-
-            return RedirectToAction();
+            return RedirectToAction(nameof(Index));
         }
-        catch
-        {
-            return View();
-        }
+        return View();
     }
 
     // GET: CustomerController/Delete/5
