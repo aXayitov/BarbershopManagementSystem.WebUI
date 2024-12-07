@@ -1,4 +1,6 @@
-﻿namespace BarbershopManagementSystem.WebUI.ViewModels;
+﻿using BarbershopManagementSystem.WebUI.Models.Enums;
+
+namespace BarbershopManagementSystem.WebUI.ViewModels;
 
 public class PaymentViewModel
 {
@@ -10,5 +12,5 @@ public class PaymentViewModel
     public string Employee { get; set; }
     public decimal Amount { get; set; }
     public DateTime PaymentDate { get; set; }
-    public string PaymentMethod { get; set; }
+    public PaymentMethod PaymentType { get; set; }
 }

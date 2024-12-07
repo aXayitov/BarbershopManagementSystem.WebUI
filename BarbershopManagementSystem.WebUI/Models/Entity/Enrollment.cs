@@ -1,4 +1,6 @@
-﻿namespace BarbershopManagementSystem.WebUI.Models.Entity
+﻿using BarbershopManagementSystem.WebUI.Models.Enums;
+
+namespace BarbershopManagementSystem.WebUI.Models.Entity
 {
     public class Enrollment
     {
@@ -10,15 +12,6 @@
         public int ServiceId { get; set; }
         public Service Service { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
-        public Status Status { get; set; }
-    }
-    public enum Status
-    {
-        Scheduled,
-        Completed,
-        Cancelled,
-        NoShow,
-        InProgress,
-        Rescheduled
+        public EnrollmentStatus Status { get; set; }
     }
 }

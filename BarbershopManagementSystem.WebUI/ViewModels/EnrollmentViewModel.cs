@@ -1,4 +1,6 @@
-﻿namespace BarbershopManagementSystem.WebUI.ViewModels;
+﻿using BarbershopManagementSystem.WebUI.Models.Enums;
+
+namespace BarbershopManagementSystem.WebUI.ViewModels;
 
 public class EnrollmentViewModel
 {
@@ -10,5 +12,5 @@ public class EnrollmentViewModel
     public int ServiceId { get; set; }
     public string Service { get; set; }
     public DateTime Date { get; set; }
-    public string Status { get; set; }
+    public EnrollmentStatus Status { get; set; }
 }

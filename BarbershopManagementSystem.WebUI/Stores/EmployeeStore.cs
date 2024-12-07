@@ -39,7 +39,7 @@ public class EmployeeStore : IEmployeeStore
 
     public async Task UpdateEmployeeAsync(EmployeeViewModel employeeForUpdate)
     {
-        await _client.PutAsync(URL, employeeForUpdate);
+        await _client.PutAsync(URL + $"/{employeeForUpdate.Id}", employeeForUpdate);
     }
 
     public async Task DeleteEmployeeAsync(int id)
