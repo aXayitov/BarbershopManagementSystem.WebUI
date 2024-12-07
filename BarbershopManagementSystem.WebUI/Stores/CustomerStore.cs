@@ -22,14 +22,10 @@ public class CustomerStore : ICustomerStore
 
     public async Task<PaginatedResponse<CustomerViewModel>> GetAllCustomersAsync(string? search = null, int? pageNumber = 1)
     {
-        // Set default values if parameters are null
         search ??= string.Empty;
         pageNumber = pageNumber.HasValue && pageNumber > 0 ? pageNumber : 1;
 
         var response = await _client.GetAsync<PaginatedResponse<CustomerViewModel>>($"{URL}?search={search}&pagenumber={pageNumber}");
-
-        // response.Data - list of customers
-        // response.TotalItems - total number of records
 
         return response;
     }

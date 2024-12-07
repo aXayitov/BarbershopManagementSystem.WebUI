@@ -1,0 +1,31 @@
+﻿@using BarbershopManagementSystem.WebUI.ViewModels
+@model EmployeeViewModel
+
+@{
+    Layout = null;
+}
+
+<div class="m-5" style="background-color: #252a33; color: white; padding: 20px; border-radius: 5px;">
+    <h4>Employee Details</h4>
+    <hr />
+
+    <dl class="row mb-0">
+        <dt class="col-sm-4 text-secondary">Id</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.Id)</dd>
+
+        <dt class="col-sm-4 text-secondary">Full Name</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.FullName)</dd>
+
+        <dt class="col-sm-4 text-secondary">Phone Number</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.PhoneNumber)</dd>
+
+        <dt class="col-sm-4 text-secondary">Position</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.Position)</dd>
+    </dl>
+</div>
+
+<div class="m-5">
+    <a asp-action="Index" class="btn btn-outline-primary">
+        <i class="fa-solid fa-arrow-left"></i> Back
+    </a>
+</div>

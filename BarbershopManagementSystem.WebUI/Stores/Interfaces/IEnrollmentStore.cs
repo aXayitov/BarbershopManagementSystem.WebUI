@@ -1,10 +1,11 @@
-﻿using BarbershopManagementSystem.WebUI.ViewModels;
+﻿using BarbershopManagementSystem.WebUI.Models;
+using BarbershopManagementSystem.WebUI.ViewModels;
 
 namespace BarbershopManagementSystem.WebUI.Stores.Interfaces;
 
 public interface IEnrollmentStore
 {
-    Task<List<EnrollmentViewModel>> GetAllEnrollmentsAsync(string? search=null);
+    Task<PaginatedResponse<EnrollmentViewModel>> GetAllEnrollmentsAsync(string? search=null, int? pageNumber = null);
     Task<EnrollmentViewModel> GetEnrollmentByIdAsync(int id);
     Task<EnrollmentViewModel> CreateEnrollmentAsync(EnrollmentViewModel enrollmentForCreate);
     Task UpdateEnrollmentAsync(EnrollmentViewModel enrollmentForUpdate);

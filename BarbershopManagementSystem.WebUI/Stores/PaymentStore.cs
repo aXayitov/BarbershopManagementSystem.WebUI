@@ -1,4 +1,6 @@
-﻿using BarbershopManagementSystem.WebUI.Models;
+﻿using BarbershopManagementSystem.WebUI.Mappings;
+using BarbershopManagementSystem.WebUI.Models;
+using BarbershopManagementSystem.WebUI.Models.Entity;
 using BarbershopManagementSystem.WebUI.Services;
 using BarbershopManagementSystem.WebUI.Stores.Interfaces;
 using BarbershopManagementSystem.WebUI.ViewModels;
@@ -15,11 +17,14 @@ public class PaymentStore : IPaymentStore
         _client = client;
     }   
 
-    public async Task<List<PaymentViewModel>> GetAllPaymentsAsync(string? search = null)
+    public async Task<PaginatedResponse<PaymentViewModel>> GetAllPaymentsAsync(string? search = null, int? pageNumber = 1)
     {
-        var response = await _client.GetAsync<PaginatedResponse<PaymentViewModel>>($"{URL}?search={search}");
+        search ??= string.Empty;
+        pageNumber = pageNumber.HasValue && pageNumber > 0 ? pageNumber : 1;
 
-        return response.Data;
+        var response = await _client.GetAsync<PaginatedResponse<PaymentViewModel>>($"{URL}?search={search}&pagenumber={pageNumber}");
+
+        return response;
     }
 
     public async Task<PaymentViewModel> GetPaymentByIdAsync(int id)
@@ -31,15 +36,19 @@ public class PaymentStore : IPaymentStore
 
     public async Task<PaymentViewModel> CreatePaymentAsync(PaymentViewModel paymentForCreate)
     {
+        var entity = paymentForCreate.ToEntity();
+
         var createdPayment = await _client
-            .PostAsync<PaymentViewModel, PaymentViewModel>(URL, paymentForCreate);
+            .PostAsync<PaymentViewModel, Payment>(URL, entity);
 
         return createdPayment;
     }
 
     public async Task UpdatePaymentAsync(PaymentViewModel paymentForUpdate)
     {
-        await _client.PutAsync(URL, paymentForUpdate);
+        var entity = paymentForUpdate.ToEntity();
+
+        await _client.PutAsync(URL, entity);
     }
 
     public async Task DeletePaymentAsync(int id)

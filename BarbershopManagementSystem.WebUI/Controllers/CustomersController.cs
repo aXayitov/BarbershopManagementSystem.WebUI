@@ -44,8 +44,6 @@ public class CustomersController : Controller
     [ValidateAntiForgeryToken]
     public async Task<ActionResult> Create([Bind("FullName, PhoneNumber, Email")] CustomerViewModel customer)
     {
-
-
         var createdCustomer = await _customerStore.CreateCustomerAsync(customer);
 
         return RedirectToAction(nameof(Index));

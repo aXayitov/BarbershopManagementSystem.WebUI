@@ -1,4 +1,6 @@
-﻿using BarbershopManagementSystem.WebUI.Models;
+﻿using BarbershopManagementSystem.WebUI.Mappings;
+using BarbershopManagementSystem.WebUI.Models;
+using BarbershopManagementSystem.WebUI.Models.Entity;
 using BarbershopManagementSystem.WebUI.Services;
 using BarbershopManagementSystem.WebUI.Stores.Interfaces;
 using BarbershopManagementSystem.WebUI.ViewModels;
@@ -16,11 +18,14 @@ namespace BarbershopManagementSystem.WebUI.Stores
         }
         
 
-        public async Task<List<ServiceViewModel>> GetAllServicesAsync(string? search = null)
+        public async Task<PaginatedResponse<ServiceViewModel>> GetAllServicesAsync(string? search = null, int? pageNumber = 1)
         {
-            var response = await _client.GetAsync<PaginatedResponse<ServiceViewModel>>($"{URL}?search={search}");
+            search ??= string.Empty;
+            pageNumber = pageNumber.HasValue && pageNumber > 0 ? pageNumber : 1;
 
-            return response.Data;
+            var response = await _client.GetAsync<PaginatedResponse<ServiceViewModel>>($"{URL}?search={search}&pagenumber={pageNumber}");
+
+            return response;
         }
 
         public async Task<ServiceViewModel> GetServiceByIdAsync(int id)
@@ -32,15 +37,19 @@ namespace BarbershopManagementSystem.WebUI.Stores
 
         public async Task<ServiceViewModel> CreateServiceAsync(ServiceViewModel serviceForCreate)
         {
+            var entity = serviceForCreate.ToEntity();
+
             var createdService = await _client
-            .PostAsync<ServiceViewModel, ServiceViewModel>(URL, serviceForCreate);
+            .PostAsync<ServiceViewModel, Service>(URL, entity);
 
             return createdService;
         }
 
         public async Task UpdateServiceAsync(ServiceViewModel serviceForUpdate)
         {
-            await _client.PutAsync(URL, serviceForUpdate);
+            var entity = serviceForUpdate.ToEntity();
+
+            await _client.PutAsync(URL, entity);
         }
 
         public async Task DeleteServiceAsync(int id)

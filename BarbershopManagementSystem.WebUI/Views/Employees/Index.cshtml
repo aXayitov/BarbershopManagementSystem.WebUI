@@ -1,0 +1,191 @@
+﻿@using BarbershopManagementSystem.WebUI.ViewModels
+@model List<EmployeeViewModel>
+
+<form asp-controller="Employees" asp-action="Index">
+    <input type="hidden" />
+    <div class="row mt-3">
+        <div class="d-flex justify-content-between gap-4">
+            <div class="col-md-4 mb-4">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search..." name="searchString" value="@ViewBag.SearchString" style="border-radius: 5px" />
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-0 mb-4">
+                <a asp-action="Create" class="btn btn-success">
+                    Create
+                </a>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="row">
+    <div class="col-12">
+        <ejs-grid id="employees-list"
+                  dataSource="@Model"
+                  gridLines="Vertical"
+                  allowSorting="true">
+            <e-grid-columns>
+                <e-grid-column headerText="Full Name" field="FullName" typeof="Text"></e-grid-column>
+                <e-grid-column headerText="Phone Number" field="PhoneNumber" typeof="Text"></e-grid-column>
+                <e-grid-column headerText="Position" field="Position" typeof="Text"></e-grid-column>
+                <e-grid-column width="180" type="text" textAlign="Center" template="#actionTemplate"></e-grid-column>
+            </e-grid-columns>
+        </ejs-grid>
+    </div>
+</div>
+
+<script type="text/x-template" id="actionTemplate">
+    <div>
+        <button type="button" class="shadow-sm bg-white rounded e-btn e-flat mx-2" title="Details" onclick="onDetailsClick(${Id})">
+            <i class="bi bi-card-list text-info" style="font-size: 19px;"></i>
+        </button>
+        <button type="button" class="shadow-sm bg-white rounded e-btn e-flat mx-2" title="Edit" onclick="onEditClick(${Id})">
+            <i class="fa-solid fa-pen fa-lg text-warning"></i>
+        </button>
+        <button type="button" class="shadow-sm bg-white rounded e-btn e-flat mx-2" title="Delete" onclick="onDeleteClick(${Id})">
+            <i class="fa-solid fa-trash-can fa-lg text-danger"></i>
+        </button>
+    </div>
+</script>
+
+<div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="background-color:#252a33">
+            <div class="modal-header d-flex justify-content-center">
+                <h4 class="modal-title">About Employee</h4>
+                <button type="button" class="btn-close" style="background-color: white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="detailsContent"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function onDetailsClick(id) {
+        $('#detailsContent').empty();
+        $.ajax({
+            url: `/employees/details/${id}`,
+            type: 'GET',
+            success: function (data) {
+                $('#detailsContent').html(data);
+
+                var detailsModal = new bootstrap.Modal(document.getElementById('detailsModal'), {
+                    backdrop: 'static',
+                    keyboard: false
+                });
+                detailsModal.show();
+            },
+            error: function (error) {
+                alert("Error loading details");
+            }
+        });
+    }
+
+    $('#detailsModal').on('hidden.bs.modal', function () {
+        $(this).find('#detailsContent').empty();
+    });
+</script>
+
+<div class="modal fade" id="employeeEditModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="background-color: #252a33; color: white">
+            <div class="modal-header d-flex justify-content-center">
+                <h4 class="modal-title">Edit Employee</h4>
+                <button type="button" class="btn-close" style="background-color: white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="employeeEditModalContent"></div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function onEditClick(id) {
+        $('#employeeEditModalContent').empty();
+        $.ajax({
+            url: `/employees/edit/${id}`,
+            type: 'GET',
+            success: function (data) {
+                $('#employeeEditModalContent').html(data);
+
+                var editModal = new bootstrap.Modal(document.getElementById('employeeEditModal'), {
+                    backdrop: 'static',
+                    keyboard: false
+                });
+                editModal.show();
+            },
+            error: function () {
+                alert("Error loading edit page");
+            }
+        });
+    }
+
+    $('#employeeEditModal').on('hidden.bs.modal', function () {
+        $(this).find('#employeeEditModalContent').empty();
+    });
+</script>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="background-color:#252a33">
+            <div class="modal-header d-flex justify-content-center">
+                <h4 class="modal-title">Delete Employee</h4>
+                <button type="button" class="btn-close" style="background-color: white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="deleteContent"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function onDeleteClick(id) {
+        $('#deleteContent').empty();
+        $.ajax({
+            url: "/employees/delete/" + id,
+            type: 'GET',
+            success: function (data) {
+                $('#deleteContent').html(data);
+                $('#deleteModal').modal('show');
+            },
+            error: function () {
+                $('#deleteContent').html('<p>Error loading details</p>');
+            }
+        });
+        $(this).find('#deleteContent').empty();
+        $(this).off('hidden.bs.modal');
+    }
+</script>
+
+<!-- Pagination -->
+
+<div class="row mt-3">
+    <div class="d-flex justify-content-center">
+        <nav aria-label="Example of page navigation">
+            <ul class="pagination">
+                @if (ViewBag.CurrentPage > 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-action="Index" asp-route-pageNumber="@(ViewBag.CurrentPage - 1)" asp-route-searchString="@ViewBag.SearchString">Previous</a>
+                    </li>
+                }
+                @for (var i = 1; i <= ViewBag.TotalPages; i++)
+                {
+                    <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                        <a class="page-link" asp-action="Index" asp-route-pageNumber="@i" asp-route-searchString="@ViewBag.SearchString">@i</a>
+                    </li>
+                }
+                @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-action="Index" asp-route-pageNumber="@(ViewBag.CurrentPage + 1)" asp-route-searchString="@ViewBag.SearchString">Next</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
+</div>

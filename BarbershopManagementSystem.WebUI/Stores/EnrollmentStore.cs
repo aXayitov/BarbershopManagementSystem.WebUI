@@ -1,4 +1,6 @@
-﻿using BarbershopManagementSystem.WebUI.Models;
+﻿using BarbershopManagementSystem.WebUI.Mappings;
+using BarbershopManagementSystem.WebUI.Models;
+using BarbershopManagementSystem.WebUI.Models.Entity;
 using BarbershopManagementSystem.WebUI.Services;
 using BarbershopManagementSystem.WebUI.Stores.Interfaces;
 using BarbershopManagementSystem.WebUI.ViewModels;
@@ -15,11 +17,14 @@ public class EnrollmentStore : IEnrollmentStore
         _client = client;
     }
 
-    public async Task<List<EnrollmentViewModel>> GetAllEnrollmentsAsync(string? search = null)
+    public async Task<PaginatedResponse<EnrollmentViewModel>> GetAllEnrollmentsAsync(string? search = null, int? pageNumber = 1)
     {
-        var response = await _client.GetAsync<PaginatedResponse<EnrollmentViewModel>>($"{URL}?search={search}");
+        search ??= string.Empty;
+        pageNumber = pageNumber.HasValue && pageNumber > 0 ? pageNumber : 1;
 
-        return response.Data;
+        var response = await _client.GetAsync<PaginatedResponse<EnrollmentViewModel>>($"{URL}?search={search}&pagenumber={pageNumber}");
+
+        return response;
     }
 
     public async Task<EnrollmentViewModel> GetEnrollmentByIdAsync(int id)
@@ -31,15 +36,19 @@ public class EnrollmentStore : IEnrollmentStore
 
     public async Task<EnrollmentViewModel> CreateEnrollmentAsync(EnrollmentViewModel enrollmentForCreate)
     {
+        var entity = enrollmentForCreate.ToEntity();
+
         var createdEnrollment = await _client
-            .PostAsync<EnrollmentViewModel, EnrollmentViewModel>(URL, enrollmentForCreate);
+            .PostAsync<EnrollmentViewModel, Enrollment>(URL, entity);
 
         return createdEnrollment;
     }
 
     public async Task UpdateEnrollmentAsync(EnrollmentViewModel enrollmentForUpdate)
     {
-        await _client.PutAsync(URL, enrollmentForUpdate);
+        var entity = enrollmentForUpdate.ToEntity();
+
+        await _client.PutAsync(URL + $"/{enrollmentForUpdate.Id}", entity);
     }
 
     public async Task DeleteEnrollmentAsync(int id)
