@@ -48,7 +48,7 @@ public class EmployeeStore : IEmployeeStore
     {
         var entity = employeeForUpdate.ToEntity();
 
-        await _client.PutAsync(URL + $"/{employeeForUpdate.Id}", entity);
+        await _client.PutAsync(URL+$"/{employeeForUpdate.Id}", entity);
     }
 
     public async Task DeleteEmployeeAsync(int id)

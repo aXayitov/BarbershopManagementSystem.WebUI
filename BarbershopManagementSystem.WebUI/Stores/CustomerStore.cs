@@ -4,9 +4,6 @@ using BarbershopManagementSystem.WebUI.Models.Entity;
 using BarbershopManagementSystem.WebUI.Services;
 using BarbershopManagementSystem.WebUI.Stores.Interfaces;
 using BarbershopManagementSystem.WebUI.ViewModels;
-using Newtonsoft.Json;
-using System.Text;
-using System.Text.Json.Serialization;
 
 namespace BarbershopManagementSystem.WebUI.Stores;
 

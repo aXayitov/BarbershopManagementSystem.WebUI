@@ -1,7 +1,9 @@
-﻿using BarbershopManagementSystem.WebUI.Stores;
+﻿using BarbershopManagementSystem.WebUI.Models.Entity;
+using BarbershopManagementSystem.WebUI.Stores;
 using BarbershopManagementSystem.WebUI.Stores.Interfaces;
 using BarbershopManagementSystem.WebUI.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BarbershopManagementSystem.WebUI.Controllers;
 
@@ -19,9 +21,6 @@ public class EmployeesController : Controller
     public async Task<ActionResult> Index(string? searchString, int? pageNumber)
     {
         var employees = await _employeeStore.GetAllEmployeesAsync(searchString, pageNumber ?? 1);
-        var positions = await GetPositions();
-
-        ViewBag.Positions = positions;
 
         ViewBag.SearchString = searchString;
         ViewBag.CurrentPage = pageNumber ?? 1;
@@ -34,13 +33,20 @@ public class EmployeesController : Controller
     public async Task<ActionResult> Details(int id)
     {
         var employee = await _employeeStore.GetEmployeeByIdAsync(id);
+        var position = await _positionStore.GetPositionByIdAsync(employee.PositionId);
+
+        employee.Position = position.Name;
 
         return View(employee);
     }
 
     // GET: EmployeeController/Create
-    public ActionResult Create()
+    public async Task<ActionResult> Create()
     {
+        var positions = await GetPositions();
+
+        ViewData["Positions"] = new SelectList(positions, "Id", "Name");
+
         return View();
     }
 
@@ -50,6 +56,9 @@ public class EmployeesController : Controller
     public async Task<ActionResult> Create([Bind("FullName, PhoneNumber, PositionId")] EmployeeViewModel employee)
     {
         var createdEmployee = await _employeeStore.CreateEmployeeAsync(employee);
+        var positions = await GetPositions();
+
+        ViewData["Positions"] = new SelectList(positions.ToList(), "Id", "Name", employee.PositionId);
 
         return RedirectToAction(nameof(Index));
     }
@@ -63,6 +72,9 @@ public class EmployeesController : Controller
         {
             return NotFound();
         }
+        var positions = await GetPositions();
+
+        ViewData["Positions"] = new SelectList(positions, "Id", "Name", employee.Id);
 
         return View(employee);
     }
@@ -77,6 +89,11 @@ public class EmployeesController : Controller
             await _employeeStore.UpdateEmployeeAsync(employee);
             return RedirectToAction(nameof(Index));
         }
+
+        var positions = await GetPositions();
+
+        ViewData["Positions"] = new SelectList(positions, "Id", "Name", employee.Id);
+
         return View();
     }
 
@@ -94,7 +111,7 @@ public class EmployeesController : Controller
     }
 
     // POST: EmployeeController/Delete/5
-    [HttpPost]
+    [HttpPost, ActionName(nameof(Delete))]
     [ValidateAntiForgeryToken]
     public async Task<ActionResult> ConfirmDelete(int id)
     {

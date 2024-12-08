@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Newtonsoft.Json;
-using System.Text;
+﻿using Newtonsoft.Json;
 
 namespace BarbershopManagementSystem.WebUI.Services;
 
