@@ -1,0 +1,39 @@
+﻿@using BarbershopManagementSystem.WebUI.ViewModels
+@model PositionViewModel;
+
+<h3 class="m-5">New Position</h3>
+
+<div class="row m-5">
+    <div class="col-md-6">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger" />
+            </div>
+
+            <div class="form-group mt-5">
+                <a asp-action="Index" class="btn btn-outline-info">
+                    Back
+                </a>
+                <button type="submit" class="btn btn-success">
+                    Save
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

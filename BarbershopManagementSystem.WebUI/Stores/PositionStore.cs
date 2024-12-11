@@ -48,7 +48,7 @@ public class PositionStore : IPositionStore
     {
         var entity = positionForUpdate.ToEntity();
 
-        await _client.PutAsync(URL, entity);
+        await _client.PutAsync(URL + $"/{positionForUpdate.Id}", entity);
     }
 
     public async Task DeletePositionAsync(int id)

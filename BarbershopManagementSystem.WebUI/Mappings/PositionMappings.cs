@@ -21,7 +21,7 @@ namespace BarbershopManagementSystem.WebUI.Mappings
             {
                 Id = positionViewModel.Id,
                 Name = positionViewModel.Name,
-                Description = positionViewModel.Description,
+                Description = positionViewModel.Description
             };
         }
     }

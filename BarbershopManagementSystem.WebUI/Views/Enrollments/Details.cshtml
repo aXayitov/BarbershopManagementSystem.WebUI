@@ -1,0 +1,32 @@
+﻿@using BarbershopManagementSystem.WebUI.ViewModels
+@model EnrollmentViewModel
+
+<div class="m-5" style="background-color: #252a33; color: white; padding: 20px; border-radius: 5px;">
+    <h4>Enrollment Details</h4>
+
+    <dl class="row mb-0">
+        <dt class="col-sm-4 text-secondary">Id</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.Id)</dd>
+
+        <dt class="col-sm-4 text-secondary">Customer</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.Customer)</dd>
+
+        <dt class="col-sm-4 text-secondary">Employee</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.Employee)</dd>
+
+        <dt class="col-sm-4 text-secondary">Service</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.Service)</dd>
+
+        <dt class="col-sm-4 text-secondary">Date</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.Date)</dd>
+
+        <dt class="col-sm-4 text-secondary">Status</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.Status)</dd>
+    </dl>
+</div>
+
+<div class="m-5">
+    <a asp-action="Index" class="btn btn-outline-primary">
+        <i class="fa-solid fa-arrow-left"></i> Back
+    </a>
+</div>

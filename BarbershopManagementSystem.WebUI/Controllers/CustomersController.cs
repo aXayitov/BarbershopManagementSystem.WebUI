@@ -25,7 +25,7 @@ public class CustomersController : Controller
         return View(customers.Data);
     }
 
-    // GET: CustomerController/Details/5
+    // GET: PositionsController/Details/5
     public async Task<ActionResult> Details(int id)
     {
         var customer = await _customerStore.GetCustomerByIdAsync(id);
