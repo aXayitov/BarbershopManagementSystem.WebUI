@@ -1,6 +1,10 @@
 ﻿@using BarbershopManagementSystem.WebUI.ViewModels
 @model EnrollmentViewModel
 
+@{
+    Layout = null;
+}
+
 <div class="container mt-4 mb-5" style="background-color: #252a33; color: white">
     <div class="card shadow border-0" style="background-color: #252a33; color: white">
 
@@ -11,21 +15,21 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                 <div class="mb-4">
-                    <label asp-for="Customer" class="form-label">Customer</label>
-                    <input asp-for="Customer" class="form-control" placeholder="Enter customer name" />
-                    <span asp-validation-for="Customer" class="text-danger"></span>
+                    <label asp-for="CustomerId" class="form-label">Customer</label>
+                    <select asp-for="Customer" name="customerId" class="form-select form-control border" asp-items="@ViewBag.Customers"></select>
+                    <span asp-validation-for="CustomerId" class="text-danger"></span>
                 </div>
 
                 <div class="mb-4">
-                    <label asp-for="Employee" class="form-label">Employee</label>
-                    <input asp-for="Employee" class="form-control" placeholder="Enter employee name" />
-                    <span asp-validation-for="Employee" class="text-danger"></span>
+                    <label asp-for="EmployeeId" class="form-label">Employee</label>
+                    <select asp-for="Employee" name="employeeId" class="form-select form-control border" asp-items="@ViewBag.Employees"></select>
+                    <span asp-validation-for="EmployeeId" class="text-danger"></span>
                 </div>
 
                 <div class="mb-4">
-                    <label asp-for="Service" class="form-label">Service</label>
-                    <input asp-for="Service" class="form-control" placeholder="Enter service details" />
-                    <span asp-validation-for="Service" class="text-danger"></span>
+                    <label asp-for="ServiceId" class="form-label">Service</label>
+                    <select asp-for="Service" name="serviceId" class="form-select form-control border" asp-items="@ViewBag.Services"></select>
+                    <span asp-validation-for="ServiceId" class="text-danger"></span>
                 </div>
 
                 <div class="mb-4">

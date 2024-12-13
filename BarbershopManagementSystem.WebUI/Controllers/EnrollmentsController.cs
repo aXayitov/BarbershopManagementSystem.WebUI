@@ -1,6 +1,8 @@
-﻿using BarbershopManagementSystem.WebUI.Stores.Interfaces;
+﻿using BarbershopManagementSystem.WebUI.Models.Enums;
+using BarbershopManagementSystem.WebUI.Stores.Interfaces;
 using BarbershopManagementSystem.WebUI.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BarbershopManagementSystem.WebUI.Controllers;
@@ -48,19 +50,25 @@ public class EnrollmentsController : Controller
         enrollment.Employee = employee.FullName;
         enrollment.Service = service.Name; 
 
-        return View(employee);
+        return View(enrollment);
     }
 
     // GET: EnrollmentsController/Create
-    public async Task<ActionResult> Create()
+    public async Task<ActionResult> Create(string? search)
     {
-        var customers = await _customerStore.GetAllCustomersAsync();
+        var customers = await _customerStore.GetAllCustomersAsync(search);
         var employees = await _employeeStore.GetAllEmployeesAsync();
         var services = await _serviceStore.GetAllServicesAsync();
 
         ViewData["Customers"] = new SelectList(customers.Data, "Id", "FullName");
         ViewData["Employees"] = new SelectList(employees.Data, "Id", "FullName");
         ViewData["Services"] = new SelectList(services.Data, "Id", "Name");
+        ViewBag.Statuses = Enum.GetValues(typeof(EnrollmentStatus)).Cast<EnrollmentStatus>()
+                           .Select(s => new SelectListItem
+                           {
+                               Text = s.ToString(),
+                               Value = ((int)s).ToString()
+                           }).ToList();
 
         return View();
     }
@@ -78,6 +86,12 @@ public class EnrollmentsController : Controller
         ViewData["Customers"] = new SelectList(customers.Data, "Id", "FullName", enrollment.CustomerId);
         ViewData["Employees"] = new SelectList(employees.Data, "Id", "FullName", enrollment.EmployeeId);
         ViewData["Services"] = new SelectList(services.Data, "Id", "Name", enrollment.ServiceId);
+        ViewBag.Statuses = Enum.GetValues(typeof(EnrollmentStatus)).Cast<EnrollmentStatus>()
+                           .Select(s => new SelectListItem
+                           {
+                               Text = s.ToString(),
+                               Value = ((int)s).ToString()
+                           }).ToList();
 
         return RedirectToAction(nameof(Index));
     }
@@ -98,6 +112,12 @@ public class EnrollmentsController : Controller
         ViewData["Customers"] = new SelectList(customers.Data, "Id", "FullName", enrollment.Id);
         ViewData["Employees"] = new SelectList(employees.Data, "Id", "FullName", enrollment.Id);
         ViewData["Services"] = new SelectList(services.Data, "Id", "Name", enrollment.Id);
+        ViewBag.Statuses = Enum.GetValues(typeof(EnrollmentStatus)).Cast<EnrollmentStatus>()
+                           .Select(s => new SelectListItem
+                           {
+                               Text = s.ToString(),
+                               Value = ((int)s).ToString()
+                           }).ToList();
 
         return View(enrollment);
     }
@@ -120,9 +140,14 @@ public class EnrollmentsController : Controller
         ViewData["Customers"] = new SelectList(customers.Data, "Id", "FullName", enrollment.Id);
         ViewData["Employees"] = new SelectList(employees.Data, "Id", "FullName", enrollment.Id);
         ViewData["Services"] = new SelectList(services.Data, "Id", "Name", enrollment.Id);
+        ViewBag.Statuses = Enum.GetValues(typeof(EnrollmentStatus)).Cast<EnrollmentStatus>()
+                           .Select(s => new SelectListItem
+                           {
+                               Text = s.ToString(),
+                               Value = ((int)s).ToString()
+                           }).ToList();
 
         return View();
-
     }
 
     // GET: EnrollmentsController/Delete/5

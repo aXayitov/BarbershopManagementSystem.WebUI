@@ -27,7 +27,6 @@ public class CustomerStore : ICustomerStore
         return response;
     }
 
-
     public async Task<CustomerViewModel> GetCustomerByIdAsync(int id)
     {
         var customer = await _client.GetAsync<CustomerViewModel>($"{URL}/{id}");
