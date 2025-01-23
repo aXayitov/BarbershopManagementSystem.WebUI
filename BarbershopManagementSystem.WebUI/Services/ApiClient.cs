@@ -12,7 +12,7 @@ public class ApiClient
     {
         _client = new HttpClient();
 
-        _client.BaseAddress = new Uri("https://localhost:7275/api/");
+        _client.BaseAddress = new Uri("http://axayitov-001-site1.anytempurl.com/api/");
         _httpContextAccessor = httpContextAccessor;
     }
 

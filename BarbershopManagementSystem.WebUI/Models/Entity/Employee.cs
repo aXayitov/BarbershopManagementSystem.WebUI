@@ -7,7 +7,7 @@
         public string? LastName { get; set; }
         public string PhoneNumber { get; set; }
         public int PositionId { get; set; }
-        public virtual Position Position { get; set; }
+        public virtual Position? Position { get; set; }
         public virtual ICollection<Enrollment>? Enrollments { get; set; }
     }
 }
